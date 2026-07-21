@@ -2,6 +2,10 @@
 name = "locc"
 version = "1.0.0"
 edition = "2024"
+license = "MIT"
+description = "CLI for counting lines of code per language"
+keywords = ["cli", "lines-of-code", "loc", "tokei", "language-stats"]
+categories = ["command-line-utilities", "development-tools"]
 
 [dependencies]
 ignore = "0.4.31"

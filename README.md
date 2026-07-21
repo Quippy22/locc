@@ -1,21 +1,36 @@
-# locc (Line-of-code Counter)
+# locc
 
-A lightning-fast, simple CLI tool to count lines of code in your projects. It respects your `.gitignore` files automatically, so you don't waste time counting dependencies or build artifacts.
+[![crates.io](https://img.shields.io/crates/v/locc.svg)](https://crates.io/crates/locc)
 
-## Features
-- **Smart Traversal:** Respects `.gitignore` and global gitignore settings.
-- **Fast:** Sequential I/O using buffered reading for optimal speed.
-- **Metrics:** Language breakdown with percentage summaries.
+Count lines of code per language.
+Respects `.gitignore` and skips hidden files.
+
+```
+cargo install locc
+```
+
+```
+$ locc --detailed
+████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Language           Lines  Percentage
+█  Rust              12345    85.3%
+█  Python             2345    10.2%
+█  TypeScript          987     4.2%
+```
 
 ## Usage
-Basic usage from any directory:
-```bash
-locc
+
 ```
-Or provide a specific path:
-```bash
-locc ~/Path/to/my-project
+locc [OPTIONS] [PATH]
 ```
 
-## License
-MIT
+| Flag | Description |
+|------|-------------|
+| (none) | Language, lines, percentage |
+| `--short` | Language and percentage only |
+| `--lines` | Language and lines only |
+| `--graph` | Colored breakdown bar |
+| `--detailed` | Bar, header, language, lines, percentage |
+
+Flags can be combined (e.g. `--graph --short`).
