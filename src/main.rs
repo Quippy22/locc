@@ -5,7 +5,6 @@ use std::path::PathBuf;
 
 use clap::Parser;
 use ignore::WalkBuilder;
-use tokei::{Config, LanguageType};
 
 mod args;
 mod display;
@@ -30,29 +29,30 @@ fn count_lines(path: &PathBuf) -> io::Result<usize> {
 fn main() -> io::Result<()> {
     let cli = args::Args::parse();
 
-    let raw: Vec<(LanguageType, usize)> = get_paths(&cli.path)
+    let raw = get_paths(&cli.path)
         .into_iter()
         .filter_map(|path| {
-            let lang = LanguageType::from_path(&path, &Config::default())?;
-            if languages::SKIP_TYPES.contains(&lang) {
-                return None;
-            }
+            let (name, color) = languages::detect(&path)?;
             let lines = count_lines(&path).ok()?;
-            Some((lang, lines))
+            Some((name.to_string(), color, lines))
         })
-        .collect();
+        .collect::<Vec<(String, (u8, u8, u8), usize)>>();
 
-    let mut totals: HashMap<LanguageType, usize> = HashMap::new();
-    for (lang, lines) in raw {
-        *totals.entry(lang).or_insert(0) += lines;
+    let mut totals: HashMap<String, (u8, u8, u8, usize)> = HashMap::new();
+    for (name, color, lines) in raw {
+        let entry = totals.entry(name).or_insert((color.0, color.1, color.2, 0));
+        entry.3 += lines;
     }
 
-    let total_lines: usize = totals.values().sum();
+    let total_lines: usize = totals.values().map(|(_, _, _, l)| l).sum();
     if total_lines == 0 {
         return Ok(());
     }
 
-    let mut entries: Vec<(LanguageType, usize)> = totals.into_iter().collect();
+    let mut entries: Vec<(&str, usize, (u8, u8, u8))> = totals
+        .iter()
+        .map(|(n, (r, g, b, l))| (n.as_str(), *l, (*r, *g, *b)))
+        .collect();
     entries.sort_by(|a, b| b.1.cmp(&a.1));
 
     let only_graph = cli.graph && !cli.short && !cli.lines && !cli.detailed;

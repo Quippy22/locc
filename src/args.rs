@@ -6,7 +6,10 @@ pub struct Args {
     #[arg(long, help = "Show language and percentage only")]
     pub short: bool,
 
-    #[arg(long, help = "Show everything: graph, header, language, lines, percentage")]
+    #[arg(
+        long,
+        help = "Show everything: graph, header, language, lines, percentage"
+    )]
     pub detailed: bool,
 
     #[arg(long, help = "Show language breakdown bar")]
