@@ -6,7 +6,6 @@ A lightning-fast, simple CLI tool to count lines of code in your projects. It re
 - **Smart Traversal:** Respects `.gitignore` and global gitignore settings.
 - **Fast:** Sequential I/O using buffered reading for optimal speed.
 - **Metrics:** Language breakdown with percentage summaries.
-- **Simple:** No complex async or heavy dependencies.
 
 ## Usage
 Basic usage from any directory:

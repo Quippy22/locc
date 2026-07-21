@@ -1,0 +1,10 @@
+[package]
+name = "locc"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+ignore = "0.4.31"
+tokei = "14.0.0"
+colored = "2"
+clap = { version = "4", features = ["derive"] }
