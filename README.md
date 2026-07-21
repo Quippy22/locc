@@ -14,9 +14,9 @@ $ locc --detailed
 ████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Language           Lines  Percentage
-█  Rust              12345    85.3%
-█  Python             2345    10.2%
-█  TypeScript          987     4.2%
+█  Rust               12345  85.3%
+█  Python             2345   10.2%
+█  TypeScript         987    4.2%
 ```
 
 ## Usage
